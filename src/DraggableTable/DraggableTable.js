@@ -76,18 +76,11 @@ function DraggableTable() {
   const [dataSource, setDataSource] = useState(DEFAULT_DATASOURCE);
   const [draggingIndex, setDraggingIndex] = useState(-1);
   const moveRow = (srcIdx, dstIdx) => {
-    const temp = dataSource[srcIdx];
-    // replace srcIdx
-    let newDataSource = [
-      ...dataSource.slice(0, srcIdx),
-      dataSource[dstIdx],
-      ...dataSource.slice(srcIdx + 1)
-    ];
-    // replace dstIdx
-    newDataSource = [
-      ...newDataSource.slice(0, dstIdx),
-      temp,
-      ...newDataSource.slice(dstIdx + 1)
+    const newDataSource = [...dataSource];
+    // https://stackoverflow.com/questions/872310/javascript-swap-array-elements
+    [newDataSource[srcIdx], newDataSource[dstIdx]] = [
+      newDataSource[dstIdx],
+      newDataSource[srcIdx]
     ];
     setDataSource(newDataSource);
   };
